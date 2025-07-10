@@ -1,7 +1,7 @@
-import Message from './components/Message'
+import QuestionScreen from './screens/QuestionScreen';
 
 function App() {
-  return <div><Message/></div>
+  return <div><QuestionScreen/></div>
 }
 
 export default App;
