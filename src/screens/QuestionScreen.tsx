@@ -1,11 +1,16 @@
-function QuestionScreen(){
+import QuestionAnswer from "../components/QuestionAnswer";
 
-    // Javascript XML
-    const Question = "Sample Question"
-    if (Question){
-        return <h1>Question</h1>
-    }
-    return <h1>Hello World</h1>
+function QuestionScreen() {
+  var Question = "Sample Question";
+  var options = ["Answer 1", "Answer 2", "Answer 3", "Answer 4"];
+  return (
+    <div>
+      <h1>{Question}</h1>
+      {options.map((option, i) => (
+        <QuestionAnswer key={i} answer={option} />
+      ))}
+    </div>
+  );
 }
 
 export default QuestionScreen;
