@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import QuestionAnswer from "../components/QuestionAnswer";
 import QuestionHeader from "../components/QuestionHeader";
+import MovingBackground from "../components/MovingBackground";
 
 function QuestionScreen() {
   var Question = "Sample Question";
@@ -8,8 +9,13 @@ function QuestionScreen() {
 
   const [selected, setSelected] = useState<string | null>(null);
 
+  useEffect(() => {
+    console.log("useEffect ran");
+  }, []);
+
   return (
     <div>
+      <MovingBackground></MovingBackground>
       <QuestionHeader question={Question} />
       {options.map((option, i) => (
         <QuestionAnswer
