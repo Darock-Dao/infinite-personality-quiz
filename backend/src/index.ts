@@ -1,19 +1,23 @@
-import express from 'express';
-import cors from 'cors';
+import express from "express";
+import cors from "cors";
+import questions from "./questions.json";
 
 const app = express();
-const port = 3001;
+const port = 3002;
 
-app.use(cors()); // enable CORS for frontend
-app.use(express.json()); // parse incoming JSON
+app.use(cors());
+app.use(express.json());
 
-// Sample route
-app.get('/api/question', (req, res) => {
-  res.json({
-    id: 1,
-    question: "Would you rather fight 1 horse-sized duck or 100 duck-sized horses?",
-    options: ["Horse-sized duck", "Duck-sized horses", "Neither", "Both"],
-  });
+app.use((req, res, next) => {
+  console.log("Request received:", req.method, req.url);
+  next();
+});
+
+app.get("/api/question", (req, res) => {
+  const randomIndex = Math.floor(Math.random() * questions.length);
+  const question = questions[randomIndex];
+  res.json(question);
+  console.log(question)
 });
 
 app.listen(port, () => {
