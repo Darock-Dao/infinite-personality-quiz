@@ -2,27 +2,51 @@ import { useState, useEffect } from "react";
 import QuestionAnswer from "../components/QuestionAnswer";
 import QuestionHeader from "../components/QuestionHeader";
 import MovingBackground from "../components/MovingBackground";
+import BackgroundMusic from "../components/BackgroundMusic";
+
+interface QuestionData {
+  id: number;
+  question: string;
+  options: string[];
+}
 
 function QuestionScreen() {
-  var Question = "Sample Question";
-  var options = ["Answer 1", "Answer 2", "Answer 3", "Answer 4"];
-
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const [data, setData] = useState<QuestionData | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("useEffect ran");
-  }, []);
+    if (questionNumber < 6) {
+      //fetch from json
+      fetch("http://localhost:3002/api/question")
+        .then((res) => res.json())
+        .then(setData)
+        .catch(console.error);
+    } else {
+      //generate wackier question
+      fetch("http://localhost:3002/api/markov-question")
+        .then((res) => res.json())
+        .then(setData)
+        .catch(console.error);
+    }
+  }, [questionNumber]);
+
+  if (!data) return <div>Loading...</div>;
 
   return (
     <div>
-      <MovingBackground></MovingBackground>
-      <QuestionHeader question={Question} />
-      {options.map((option, i) => (
+      <MovingBackground />
+      <QuestionHeader question={data.question} />
+      {data.options.map((option, i) => (
         <QuestionAnswer
           key={i}
           answer={option}
           isSelected={selected === option}
-          onClick={() => setSelected(option)}
+          onClick={() => {
+            setSelected(option);
+            setSelected(null);
+            setQuestionNumber((prev) => prev + 1);
+          }}
         />
       ))}
     </div>
