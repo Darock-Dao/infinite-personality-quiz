@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import questions from "./questions.json";
+import generateQuestion from "./createQuestion"
 
 const app = express();
 const port = 3002;
@@ -18,6 +19,12 @@ app.get("/api/question", (req, res) => {
   const question = questions[randomIndex];
   res.json(question);
   console.log(question)
+});
+
+app.get("/api/markov-question", (req, res) => {
+  const question = generateQuestion()
+  res.json(question)
+  console.log("Markov Question: ", question)
 });
 
 app.listen(port, () => {
