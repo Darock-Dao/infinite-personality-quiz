@@ -26,7 +26,7 @@ function generateQuestion(): GeneratedQuestion {
 
   const allOptions = questions.flatMap(q => q.options);
   const shuffled = allOptions.sort(() => Math.random() - 0.5);
-  const options = shuffled.slice(0, 4); 
+  const options = shuffled.slice(0, 4);
 
   return {
     question,

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import QuestionAnswer from "../components/QuestionAnswer";
 import QuestionHeader from "../components/QuestionHeader";
 import MovingBackground from "../components/MovingBackground";
+import styles from "./QuestionScreen.module.css"
 import BackgroundMusic from "../components/BackgroundMusic";
 
 interface QuestionData {
@@ -34,21 +35,24 @@ function QuestionScreen() {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <div>
+    <div className = {styles.container}>
       <MovingBackground />
-      <QuestionHeader question={data.question} />
-      {data.options.map((option, i) => (
-        <QuestionAnswer
-          key={i}
-          answer={option}
-          isSelected={selected === option}
-          onClick={() => {
-            setSelected(option);
-            setSelected(null);
-            setQuestionNumber((prev) => prev + 1);
-          }}
-        />
+      <QuestionHeader question={data.question}/>
+      <div className = {styles.answersGrid}>
+        {data.options.map((option, i) => (
+          <QuestionAnswer
+            key={i}
+            answer={option}
+            isSelected={selected === option}
+            onClick={() => {
+              setSelected(option);
+              setSelected(null);
+              setQuestionNumber((prev) => prev + 1);
+            }}
+          />
+        
       ))}
+      </div>
     </div>
   );
 }
