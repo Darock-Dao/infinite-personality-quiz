@@ -37,7 +37,7 @@ function QuestionScreen() {
   return (
     <div className = {styles.container}>
       <MovingBackground />
-      <QuestionHeader question={data.question}/>
+      <QuestionHeader question={data.question} className = {styles.questionHeader}/>
       <div className = {styles.answersGrid}>
         {data.options.map((option, i) => (
           <QuestionAnswer
